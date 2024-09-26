@@ -9,8 +9,10 @@
     <h3>CRUD de Productos</h3>
 
     <a href="index.php?accion=modalAdd">Agregar Producto ➕📁</a>
+    <input type="text" id="inputBusqueda" placeholder="Buscar por nombre" onkeyup="filtrarProductos()">
+   
+    <table class="table" border="1" id="tablaProductos">
 
-    <table class="table" border="1" >
         <thead>
             <tr>
                 <th>ID</th>
@@ -35,6 +37,9 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    
+    <script src="./Publico/script.js"></script>
     
 </body>
 </html>
