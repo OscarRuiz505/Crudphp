@@ -1,13 +1,15 @@
 <?php
 print("Modelo");
 class ProductoModelo {
+
+    
     private PDO $conexion;
     public function __construct() {
         global $conexion;
         $this->conexion = $conexion;
     }
 
-    // Modelo para consultar productos en la BD
+     // Modelo para consultar productos en la BD
 
 
     public function obtenerProductos(): array {
@@ -25,6 +27,21 @@ class ProductoModelo {
         }
     }
     
+    // Modelo para consultar UN producto en la BD por su ID
+public function obtenerProductoPorId(int $id): array {
+    $statement = $this->conexion->prepare("SELECT * FROM productos WHERE id = ?");
+    $statement->execute([$id]);
+    return $statement->fetch(PDO::FETCH_ASSOC);
+}
+// Modelo para Actualizar UN producto en la BD por su ID
+public function actualizarProducto(int $id, string $nombre, int $stock, float $precio): bool {
+    try {
+        $statement = $this->conexion->prepare("UPDATE productos SET nombre = ?, stock = ?, precio = ? WHERE id = ?");
+        return $statement->execute([$nombre, $stock, $precio, $id]);
+    } catch (PDOException $e) {
+        exit("Error al actualizar el producto: " . $e->getMessage());
+    }
+}
     
     }
 
